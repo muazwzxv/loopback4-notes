@@ -108,9 +108,9 @@ export class HelloController {
 
 ###    Context events
 			 - Instance of **Context** can emit the following events
-			 - **bind**: Emitted when new binding addes to the context
-			 - **Unbind**: Emitted when existing binding is removed from the context
-			 - **error**: Emitted when an observer throws an error during notification process
+			 - bind: Emitted when new binding addes to the context
+			 - Unbind: Emitted when existing binding is removed from the context
+			 - error: Emitted when an observer throws an error during notification process
 
 ### Context Observer
 - **ContextObserverFn** :- Type
