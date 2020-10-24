@@ -107,7 +107,7 @@ export class HelloController {
  - @param :- requesting for params arguments
 
 ###    Context events
-			 - Instance of **Context** can emit the following events
+			 - Instance of CONTEXT can emit the following events
 			 - bind: Emitted when new binding addes to the context
 			 - Unbind: Emitted when existing binding is removed from the context
 			 - error: Emitted when an observer throws an error during notification process
