@@ -10,16 +10,13 @@ This is my loopback 4 notes
   organizing config and setup
 - Application can be configured with constructors, bindings or a combination of both
 
-##  BINDING CONFIGURATIONS 
+###  BINDING CONFIGURATIONS 
 	- Binding is recommended for setting up an application
 	- 'Context' provide functions like ['.component', '.server', '.controller'] 
-
 	- '.component' allows binding of component constructor within Application
 	  instance's context
 	- '.controller' allow binding of controller to the Application Context
-	- '.servers' binding of servers, allow bulk binding :- use Array app.server([MyServer,
-	  RestServer])
-
+	- '.servers' binding of servers, allow bulk binding :- use Array app.server([MyServer, RestServer])
 
 # Component  
 
@@ -35,6 +32,7 @@ This is my loopback 4 notes
 
 	* All these properties contribute to the application to add additional feature and capabilities
 
+
 # Context  
 
 - An abstraction of all state and dependencies in our application
@@ -46,24 +44,25 @@ This is my loopback 4 notes
   value and is used to look up whatever you store along with the key. For example
 - 'getSync' used to fetch the boundValue from the bindkey
 
-## Application-level context (global) 
+###  Application-level context (global) 
 - stores all initial and modified app states throughout the entire life of the app :- while process
   is alive
 - Configured when application is created
 
-## Server-level context
+###  Server-level context
 - child of application-level context
 - holds config specific to a particular server instance
 - server level context will have an 'Application-level context' as its parent
 	- which means all the bindings in the application level is valid in the server level context
 	- Unless these bindings are being replaces in the server instance 
 
-## Request-level context
+### Request-level context
 - Dynamically created for each incoming request
 - extend the application level context to give you access to 'application-level dependencies during
   req/res lifecycle
 - garbage are collected once the response is set for memory management
 - 'this.ctx' is available in a sequence
+
 ```ts
 import { DefaultSequence, RestBindings, RequestContext } from '@loopback/rest'
 
@@ -76,7 +75,7 @@ class MySequence extends DefaultSequence {
 }
 ```
 
-## Storing and Retrieving items from a context
+### Storing and Retrieving items from a context
 - Items in context are indexed via key value pairs
 
 ```ts
