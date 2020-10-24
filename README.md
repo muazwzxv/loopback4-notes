@@ -77,12 +77,84 @@ class MySequence extends DefaultSequence {
 
 ### Storing and Retrieving items from a context
 - Items in context are indexed via key value pairs
-
+- We bind the 'world to the key 'hello' :- use getSync() to fetch the value
 ```ts
 // app level
 const app = new Application();
 app.bind('hello').to('world'); // BindingKey='hello', BoundValue='world'
 console.log(app.getSync<string>('hello')); // => 'world'
+```
+
+### Dependency Injection
+- Configs are added to the context during app instantiation by dev
+- When configs are registered, context provides way to use dependencies during runtime
+```ts
+import {inject, Application } from '@loopback/core'
+const app = new Application()
+app.bind('defaultName').to('John')
+
+export class HelloController {
+	constructor(@inject('defaultName') private name: string) {}
+
+	greet(name?: string) {
+		return `Hello ${name || this.name}`
+	}
+}
+```
+
+### Context metadata and sugar decorators
+ - @get :- tells loopback to trigger a certain function at HTTP get req
+ - @param :- requesting for params arguments
+
+###    Context events
+			 - Instance of **Context** can emit the following events
+			 - **bind**: Emitted when new binding addes to the context
+			 - **Unbind**: Emitted when existing binding is removed from the context
+			 - **error**: Emitted when an observer throws an error during notification process
+
+### Context Observer
+- **ContextObserverFn** :- Type
+- **ContextObserver** :- Interface
+- **ContextEventObserver** :- Async and invoked by notification queue after event is emitted (after
+	emit returns)
+- **ContextEventListenet** :- Async and invoked when the even is emitted (Before emit returns)
+	- **Context API**
+		- subscribe(observer: ContextEventObserver) :- Add context event observer to the context chain,
+			ancestor included
+		- unsubscribe(observer: ContextEventObserver) :- Remove context event observer from the context
+			chain
+		- close() :- Close the context and release reference to other object in the context chain
+		- child context registers even listeners with its parents context, close() method must be called
+			to avoid memory if child context is to be recycled
+- To react on context event asyncly, need to implement **ContextObserver** interface or provide
+	**ContextObserverFn** and register it with the context
+
+```ts
+const app = new Context('app')
+server = new Context(app, 'server')
+
+const observer: ContextObserver = {
+	// Only interested in bindings tagged with `foo`
+	filter: binding => binding.tagMap.foo != null,
+
+	observe(event: ContextEventType, binding: Readonly<Binding<unknown>>) {
+		if (event === 'bind') {
+			console.log('bind: %s', binding.key)
+			//... Perform async operations
+		} else if(event === 'unbind') {
+			console.log('unbind %s', binding.key)	
+		}
+	},
+}
+
+server.subscribe(observer)
+server.bind('foo-server').to('foo-value').tag('foo')
+app.bind('foo-app').to('foo-value').tag('foo')
+
+/* Output
+bind: foo-server
+bind: foo-app
+*/
 ```
 
 
