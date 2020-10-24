@@ -1,12 +1,12 @@
 This is my loopback 4 notes
 
-*** Application ***
+## Application 
 
 - Application class in the central of setting up all the module's components, controllers,
   servers and binding.
 - Application extends 'Context' and provides the controls for starting and stopping and
   the associated servers
-- *** Loopback team encourage creating subclass that extends 'Application' for better
+-  Loopback team encourage creating subclass that extends 'Application' for better
   organizing config and setup
 - Application can be configured with constructors, bindings or a combination of both
 
@@ -22,7 +22,7 @@ This is my loopback 4 notes
 	  RestServer])
 
 
-*** Component *** 
+## Component  
 
 - Component allows the extensibility of a loopback application     
 - Component can have 
@@ -36,7 +36,7 @@ This is my loopback 4 notes
 
 	* All these properties contribute to the application to add additional feature and capabilities
 
-*** Context *** 
+## Context  
 
 - An abstraction of all state and dependencies in our application
 - Context is used in loopback to manage everything
@@ -65,19 +65,29 @@ Request-level context
   req/res lifecycle
 - garbage are collected once the response is set for memory management
 - 'this.ctx' is available in a sequence
+```ts
+import {DefaultSequence, RestBindings, RequestContext} from '@loopback/rest';
+
+class MySequence extends DefaultSequence {
+	async handle(context: RequestContext) {
+		// RequestContext provides request/response properties for convenience
+		// and performance, but they are still available in the context too
+		const req = await this.ctx.get(RestBindings.Http.REQUEST);
+	  const res = await this.ctx.get(RestBindings.Http.RESPONSE);
+		this.send(res, `hello ${req.query.name}`);
+	}
+}
+```
 
 Storing and Retrieving items from a context
 - Items in context are indexed via key value pairs
 
-```
+```ts
 // app level
 const app = new Application();
 app.bind('hello').to('world'); // BindingKey='hello', BoundValue='world'
 console.log(app.getSync<string>('hello')); // => 'world'
 ```
-
-
-
 
 
 
