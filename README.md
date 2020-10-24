@@ -156,6 +156,35 @@ bind: foo-server
 bind: foo-app
 */
 ```
+- Observer subscribe to a context will be registered will all the context on the chain
+- Based on above, observer is both added to **server** and **app** so that it can be notified when
+	bindings are added or removed from any context on the chain 
+	- Observer are called next turn of Promise
+	- When they are multiple async observer registered :- they are notified in series for an event
+	- When multiple bindings event are emitted in the same event loop tick and they are async
+		observers registered, such events are queued and observers by the order of events
+
+### Observer error handling
+- Recommended that **ContextEventObserver** implementation dont throw errors in their code. Errors
+	thrown by ctx event observer are reported over the context chain
+	1. Check if current context has error listeners. if yes, then emit an error event
+	2. If no context object of the chain has error listneners. emit an error event on the current
+		 context, the process will exit abnormally.
+
+## Context view
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
