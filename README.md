@@ -172,6 +172,14 @@ bind: foo-app
 		 context, the process will exit abnormally.
 
 ## Context view
+- Bindings in a context can be added or remove, needed for extension point to keep track of other
+	extensions. **RestServer** keeping tracks of routes from **Controller**
+- Helps the **RestServer** to keep tracks of register routes without restarting
+- Introduced **ContextObserver** interface and **ContextView** class to be used to watch the list of
+	bindings matching criteria by a **BindingFilter** function and an optional **BindingComparator**
+	function to sort matched bindings
+- **ContextVew** caches resolved values until context bindings matching the filter function are
+	added/removed
 
 
 
