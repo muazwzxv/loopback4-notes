@@ -217,9 +217,21 @@ await view.values() // returns instance [controller1]
 - close :- When the view is closed (stopped observing conext events)
 
 
+### Using context.configure
+- Provide a way to configure the target bindings
 
+```ts
+// JomBillServer :- refers to entry class for application
+const app = new Context()
 
+app.bind('servers.RestServer.server_1').toClass(JomBillServer)
+app.configure('servers.RestServer.server_1')
+	 .to( { protocol: 'https', port: 473 } )
 
+app.bind('servers.RestServer.server_2').toClass(JomBillServer)
+app.configure('servers.RestServer.server_2')
+   .to( { protocol: 'https', port: 80 } )
+```
 
 
 
