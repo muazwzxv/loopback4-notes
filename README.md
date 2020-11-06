@@ -233,6 +233,9 @@ app.configure('servers.RestServer.server_2')
    .to( { protocol: 'https', port: 80 } )
 ```
 
+# Bindings
+
+
 
 
 
