@@ -11,12 +11,12 @@ This is my loopback 4 notes
 - Application can be configured with constructors, bindings or a combination of both
 
 ###  BINDING CONFIGURATIONS 
-	- Binding is recommended for setting up an application
-	- **Context** provide functions like ['.component', '.server', '.controller'] 
-	- **component** allows binding of component constructor within Application
-	  instance's context
-	- **controller** allow binding of controller to the Application Context
-	- **servers** binding of servers, allow bulk binding :- use Array app.server([MyServer, RestServer])
+- Binding is recommended for setting up an application
+- **Context** provide functions like ['.component', '.server', '.controller'] 
+- **component** allows binding of component constructor within Application
+  instance's context
+- **controller** allow binding of controller to the Application Context
+- **servers** binding of servers, allow bulk binding :- use Array app.server([MyServer, RestServer])
 
 # Component  
 
