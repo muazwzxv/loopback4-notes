@@ -106,11 +106,11 @@ export class HelloController {
  - @get :- tells loopback to trigger a certain function at HTTP get req
  - @param :- requesting for params arguments
 
-###    Context events
-			 - Instance of CONTEXT can emit the following events
-			 - bind: Emitted when new binding addes to the context
-			 - Unbind: Emitted when existing binding is removed from the context
-			 - error: Emitted when an observer throws an error during notification process
+### Context events
+- Instance of CONTEXT can emit the following events
+- bind: Emitted when new binding addes to the context
+- Unbind: Emitted when existing binding is removed from the context
+- error: Emitted when an observer throws an error during notification process
 
 ### Context Observer
 - **ContextObserverFn** :- Type
