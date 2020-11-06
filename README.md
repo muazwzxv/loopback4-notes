@@ -4,7 +4,7 @@ This is my loopback 4 notes
 
 - Application class in the central of setting up all the module's components, controllers,
   servers and binding.
-- Application extends 'Context' and provides the controls for starting and stopping and
+- Application extends **Context** and provides the controls for starting and stopping and
   the associated servers
 -  Loopback team encourage creating subclass that extends 'Application' for better
   organizing config and setup
@@ -12,11 +12,11 @@ This is my loopback 4 notes
 
 ###  BINDING CONFIGURATIONS 
 	- Binding is recommended for setting up an application
-	- 'Context' provide functions like ['.component', '.server', '.controller'] 
-	- '.component' allows binding of component constructor within Application
+	- **Context** provide functions like ['.component', '.server', '.controller'] 
+	- **component** allows binding of component constructor within Application
 	  instance's context
-	- '.controller' allow binding of controller to the Application Context
-	- '.servers' binding of servers, allow bulk binding :- use Array app.server([MyServer, RestServer])
+	- **controller** allow binding of controller to the Application Context
+	- **servers** binding of servers, allow bulk binding :- use Array app.server([MyServer, RestServer])
 
 # Component  
 
@@ -52,16 +52,16 @@ This is my loopback 4 notes
 ###  Server-level context
 - child of application-level context
 - holds config specific to a particular server instance
-- server level context will have an 'Application-level context' as its parent
+- server level context will have an **Application-level context** as its parent
 	- which means all the bindings in the application level is valid in the server level context
 	- Unless these bindings are being replaces in the server instance 
 
 ### Request-level context
 - Dynamically created for each incoming request
-- extend the application level context to give you access to 'application-level dependencies during
+- extend the application level context to give you access to **application-level** dependencies during
   req/res lifecycle
 - garbage are collected once the response is set for memory management
-- 'this.ctx' is available in a sequence
+- **this.ctx** is available in a sequence
 
 ```ts
 import { DefaultSequence, RestBindings, RequestContext } from '@loopback/rest'
@@ -208,6 +208,13 @@ await view.values() // returns instance [controller1]
 
 
 ```
+
+### Context view events
+- bind :- When a binding added to view
+- unbind :- when an binding is removed from the view
+- refresh :- when the view is refreshed as bindings are added/removed
+- resolve :- When the cached values are resolved and updated
+- close :- When the view is closed (stopped observing conext events)
 
 
 
