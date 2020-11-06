@@ -181,7 +181,33 @@ bind: foo-app
 - **ContextVew** caches resolved values until context bindings matching the filter function are
 	added/removed
 
+```ts
+import {Context, ContextView} from '@loopback/core'
 
+// setup context chain
+const app = new Context('app')
+const server = new Context(app, 'server')
+
+// Define binding filter
+const controllerFilter = binding => binding.tagMap.controller != null
+
+// setup watch for controller bindings
+const view = server.createView(controllerFilter)
+
+server.bind('controllers.controller1').toClass(controller1).tag('controller')
+await view.values() // returns instance [controller1]
+
+app.bind('controllers.controller2').toClass(controller2).tag('controller')
+await view.values() // returns instance [controller1, controller2]
+
+app.unbind('controllers.controller2')
+await view.values() // returns instance [controller1]
+
+// Reason being is the 'createView' functions watches over the bindings of controller
+// from the app level context to the server level context
+
+
+```
 
 
 
