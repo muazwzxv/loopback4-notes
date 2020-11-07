@@ -406,6 +406,7 @@ const d2 = ctx.getSync<Date>('current-date')
 export class Counter {
 	public count = 0
 }
+
 ctx.bind('Global-Counter').toClass(Counter).inScope(Binding.SINGLETON)
 
 const c1: Counter = await ctx.get('Global-Counter')
