@@ -391,10 +391,7 @@ const d2 = ctx.getSync('current-date')
 // 2 diffs date will be assign as the default scope is TRANSIET
 
 // NEXT
-ctx
-	 .bind('current-date')
-	 .toDynamicValue(() => new Date())
-	 .inScope(BindingScope.SINGLETON)
+ctx.bind('current-date').toDynamicValue(() => new Date()).inScope(BindingScope.SINGLETON)
 const d1 = ctx.getSync<Date>('current-date')
 const d2 = ctx.getSync<Date>('current-date')
 // d1 == d2
@@ -409,11 +406,7 @@ const d2 = ctx.getSync<Date>('current-date')
 export class Counter {
 	public count = 0
 }
-
-ctx
-	.bind('Global-Counter')
-	.toClass(Counter)
-	.inScope(Binding.SINGLETON)
+ctx.bind('Global-Counter').toClass(Counter).inScope(Binding.SINGLETON)
 
 const c1: Counter = await ctx.get('Global-Counter')
 c1++ // c1.count == 1
