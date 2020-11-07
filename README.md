@@ -322,7 +322,7 @@ binding.toClass(MyController)
 ### A provider
 - Provider is a class with value() method to calculate value from its instance
 - Using provider to levarage dependency injection for the factory function
-- If dependency is not needed, use ***toDynamicValue*** instead
+- If dependency is not needed, use **toDynamicValue** instead
 ```ts 
 class MyProvider implemens Privider<string> {
 	constructor(
@@ -406,13 +406,11 @@ const d2 = ctx.getSync<Date>('current-date')
 export class Counter {
 	public count = 0
 }
-
 ctx.bind('Global-Counter').toClass(Counter).inScope(Binding.SINGLETON)
 
-const c1: Counter = await ctx.get('Global-Counter')
-c1++ // c1.count == 1
-const c2: Counter = await ctx.get('Global-Counter')
-// c2 instance === c1 instancee
+const c1: Counter = await ctx.get('Global-Counter') // c1.count == 1
+c1++
+const c2: Counter = await ctx.get('Global-Counter') // c2 instance === c1 instancee
 // hence c2.count == 1 || c2.count === c1.count
 ```
 
