@@ -411,9 +411,9 @@ export class Counter {
 }
 
 ctx
-	 .bind('Global-Counter')
-	 .toClass(Counter)
-	 .inScope(Binding.SINGLETON)
+	.bind('Global-Counter')
+	.toClass(Counter)
+	.inScope(Binding.SINGLETON)
 
 const c1: Counter = await ctx.get('Global-Counter')
 c1++ // c1.count == 1
