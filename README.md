@@ -1,18 +1,19 @@
 This is my loopback 4 notes
 
-# Application 
+# Application
 
 - Application class in the central of setting up all the module's components, controllers,
   servers and binding.
 - Application extends **Context** and provides the controls for starting and stopping and
   the associated servers
--  Loopback team encourage creating subclass that extends 'Application' for better
+- Loopback team encourage creating subclass that extends 'Application' for better
   organizing config and setup
 - Application can be configured with constructors, bindings or a combination of both
 
-###  BINDING CONFIGURATIONS 
+## BINDING CONFIGURATIONS
+
 - Binding is recommended for setting up an application
-- **Context** provide functions like ['.component', '.server', '.controller'] 
+- **Context** provide functions like ['.component', '.server', '.controller']
 - **component** allows binding of component constructor within Application
   instance's context
 - **controller** allow binding of controller to the Application Context
@@ -20,7 +21,7 @@ This is my loopback 4 notes
 
 # Component  
 
-- Component allows the extensibility of a loopback application     
+- Component allows the extensibility of a loopback application
 - Component can have 
 	- controller - array of controller classes
 	- provider - map of providers to be bound to the application context s
@@ -44,7 +45,7 @@ This is my loopback 4 notes
   value and is used to look up whatever you store along with the key. For example
 - 'getSync' used to fetch the boundValue from the bindkey
 
-###  Application-level context (global) 
+###  Application-level context (global)
 - stores all initial and modified app states throughout the entire life of the app :- while process
   is alive
 - Configured when application is created
@@ -324,7 +325,7 @@ binding.toClass(MyController)
 - Using provider to levarage dependency injection for the factory function
 - If dependency is not needed, use **toDynamicValue** instead
 ```ts 
-class MyProvider implemens Privider<string> {
+class MyProvider implements Provider<string> {
 	constructor(
 		@inject('my-options') private options: MyOptions
 	) {}
