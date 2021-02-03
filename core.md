@@ -468,7 +468,70 @@ const c2: Counter = await ctx.get("Global-Counter"); // c2 instance === c1 insta
 
 ![Interceptor diagram](./assets/interceptor.png)
 
+## Basic use
 
+### Interceptors on controllers
+- Interceptors are supported for public controller methods
+  - including both static and prototyp
+  - and handler functions for REST routes
+- Controller methods decorated with @intercept are invoked with applied interceptors for coressponding routes upon API requests.
+
+```ts
+import {intercept} from '@loopback/core';
+
+@intercept(log) // 'log' is an interceptor function
+export class OrderController {
+  @intercept('caching-interceptor') // 'caching-interceptor' is a binding key
+  async listOrtders(id: string) {
+    // sekian logic dia
+  }
+}
+```
+
+- You can configure global interceptors that are invoked before method level interceptors
+- following example registers a global 'caching-interceptor' for all methods.
+
+```ts
+app.interceptor(CachingInterceptorProvider, {
+  global: true,
+  group: 'caching',
+  key: 'caching-interceptor'
+})
+```
+- global interceptors are also executed for route handler functions without a controller class
+
+### Create proxy to apply interceptors
+- A proxy can be created from the target class or object to apply interceptors. This is useful for the case that a controller declares dependencies of repositories or sevices and would like to allow repository or service methods to be intercepted
+
+```ts
+import {createProxyWithInterceptors} from '@loopback/core';
+
+const proxy = createProxyWithInterceptors(controllerInstace, ctx);
+const msg = await proxy.greet("john");
+```
+
+- asProxyWithInterceptors :- option for binding resolution or dependency injection to return a proxy for the class to apply interceptors when methods are invoked
+
+```ts
+class DummyController {
+  constructor(
+    @inject('my-controller', {asProxyWithInterceptors: true})
+    public readonly myController: MyController.
+  ) {}
+}
+ctx.bind('my-controller').toClass(MyController);
+ctx.bind('dummy-controller').toClass(DummyController);
+
+
+const dummyController = await ctx.get<DummyController>('dummy-controller');
+const msg = await dummyController.myController.greet('john');
+
+// OR
+
+const proxy = await ctx.get<MyController>('my=controller',{ asProxyWithInterceptors: true });
+const msg = await proxy.greet('john');
+```
+- Sync method (which don't return promise) are converted to return 'ValueOrPromise' (sync or async) in the proxy so that interceptors can be applied
 
 
 
