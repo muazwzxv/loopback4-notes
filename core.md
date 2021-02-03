@@ -452,3 +452,41 @@ c1++;
 const c2: Counter = await ctx.get("Global-Counter"); // c2 instance === c1 instancee
 // hence c2.count == 1 || c2.count === c1.count
 ```
+
+# Interceptors
+
+### What is an interceptor
+
+- Interceptor are reusable function to provide aspect- oriented logic around method invocation
+
+- Use case
+  - Add logic before/after method invocation, logging or measuring method invocation
+  - Validate/transform arguments
+  - validate/transform return value
+  - cache/transform errors, For example, nortmalize error objects
+  - Override the method invocation, for example, return from cache
+
+![Interceptor diagram](./assets/interceptor.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
